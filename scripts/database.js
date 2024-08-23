@@ -69,14 +69,30 @@ export const setSide = (chosenSideId) => {
 
 export const purchaseCombo = (purchasedCombo) => {
     database.purchases.push(purchasedCombo)
-    console.log(database.purchases, ' PURCHASE SAVED IN DATABASE')
+    const customEvent = new CustomEvent("stateChanged")
+    document.dispatchEvent(customEvent)
 }
+
+export const assignIdToPurchase = (comboChoices) => {
+    let newId = 1
+    let purchases = getPurchases()
+    purchases.forEach(purchase => {
+        if (purchase.id >= newId) {
+            newId = purchase.id + 1
+        }
+    })
+    console.log(purchases)
+    comboChoices.id = newId
+    console.log(newId, 'NEW ID')
+    console.log(comboChoices.id, 'NEW ID')
+}
+
+//clear functions
 export const clearComboState = () => {
     for (const choice in database.comboChoices) {
         database.comboChoices[choice] = 0
     }
 }
-
 export const clearRadioSelections = () => {
     let allRadioButtons = document.querySelectorAll('.radio-button')
     allRadioButtons.forEach(button => {

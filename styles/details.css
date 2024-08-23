@@ -1,3 +1,19 @@
+#container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1200px;
+    height: 1200px;
+}
+
+.all-food-elements {
+    display: flex;
+}
+
+.all-food-elements h2 {
+    text-align: center;
+}
+
 .choices {
     display: flex;
     justify-content: space-evenly;
@@ -10,6 +26,8 @@
     padding: 1rem;
     border-radius: 0.5rem;
     box-shadow: 0.25rem 0.25rem 0.5rem rgb(143, 143, 143);
+    width: 275px;
+    height: 275px;
 }
 
 .customOrders {

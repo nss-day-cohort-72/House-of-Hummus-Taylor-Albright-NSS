@@ -1,5 +1,6 @@
-import { addPurchase } from "./database.js"
+// import { addPurchase } from "./database.js"
 import { Sales } from "./Sales.js"
+import { displayEntrees } from "./Entrees.js"
 
 document.addEventListener("click", (event) => {
     if (event.target.id === "purchase") {
@@ -13,7 +14,7 @@ export const FoodTruck = () => {
             <img src="./images/hummus.png" class="logo" />
             <h1 class="title">Laura Kathryn's House of Hummus</h1>
         </header>
-
+        <section>${displayEntrees()}</section>
         <article>
             <button id="purchase">Purchase Combo</button>
         </article>
@@ -22,6 +23,5 @@ export const FoodTruck = () => {
             <h2>Monthly Sales</h2>
             ${Sales()}
         </article>
-
     `
 }

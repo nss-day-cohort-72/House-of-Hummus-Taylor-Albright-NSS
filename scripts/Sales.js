@@ -1,4 +1,5 @@
 import { getVeggies } from "./database.js"
+import { getPurchases } from "./database.js"
 
 const buildOrderListItem = (order) => {
     const veggies = getVeggies()

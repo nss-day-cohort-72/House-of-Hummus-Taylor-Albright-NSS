@@ -33,3 +33,20 @@ const database = {
     purchases: [],
     comboChoices: {},
 }
+
+export const getEntrees = () => {
+    return database.entrees.map(entree => ({...entree}))
+}
+export const getVeggies = () => {
+    return database.veggies.map(veggie => ({...veggie}))
+}
+export const getSides = () => {
+    return database.sides.map(side => ({...side}))
+}
+export const getPurchases = () => {
+    return database.purchases.map(purchase => ({...purchase}))
+}
+
+export const setEntree = (chosenEntree) => {
+    //set transientState here
+}

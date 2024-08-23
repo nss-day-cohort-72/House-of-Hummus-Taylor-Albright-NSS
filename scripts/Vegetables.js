@@ -12,7 +12,7 @@ export const Veggies = () => {
 
     let html = `<ul>
         ${
-            vegies.map(vegtable => {
+            veggies.map(vegetable => {
                 return `<li>
                             <input type="radio" name="vegetable" value="${vegetable.id}" /> ${vegetable.type}
                         </li>`

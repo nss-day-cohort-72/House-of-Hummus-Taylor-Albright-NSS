@@ -8,12 +8,12 @@ document.addEventListener("change", (event) => {
     }
 })
 
-export const displayVegetables = () => {
+export const Veggies = () => {
 
     let html = `<ul>
         ${
             veggies.map(vegetable => {
-                return `<li>
+                return `<li class='choices__veggies'>
                             <input class='radio-button' type="radio" name="vegetable" value="${vegetable.id}" /> ${vegetable.type}
                         </li>`
             }).join("")

@@ -9,12 +9,13 @@ document.addEventListener("change", (event) => {
 })
 
 // Requirement: The radio input elements that this component funcion renders must all have a name of "sideDish"
-export const displaySideDishes = () => {
+export const Sides = () => {
     let html = "<ul>"
 
     const listItems = sideDishes.map(dish => {
-        return `<li>
-            <input class='radio-button' type="radio" name='sideDish' value='${dish.id}'/> ${dish.title}
+        return `<li class='choices__sides'>
+            <input class='radio-button' type="radio" name='sideDish' value='${dish.id}'/
+                > ${dish.title}
         </li>`
     })
 

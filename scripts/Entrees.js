@@ -8,14 +8,14 @@ document.addEventListener("change", (event) => {
     }
 })
 
-export const displayEntrees = () => {
+export const Entrees = () => {
     console.log(entrees)
     let entreeHTML = `<ul>`
     entreeHTML += entrees.map(entree => {
         return `
-        <li>
+        <li class='choices__base'>
             <input class='radio-button' type='radio' name='entree' value=${entree.id}
-                >${entree.name}
+                > ${entree.name}
         </li>`
     }).join('')
     entreeHTML += `</ul>`

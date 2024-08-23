@@ -1,23 +1,23 @@
 // import { addPurchase } from "./database.js"
 import { Sales } from "./Sales.js"
-import { displayEntrees } from "./Entrees.js"
-import { displayVegetables } from "./Vegetables.js"
-import { displaySideDishes } from "./SideDishes.js"
+import { Entrees } from "./Entrees.js"
+import { Veggies } from "./Vegetables.js"
+import { Sides } from "./SideDishes.js"
 import { clearComboState, getComboChoices, purchaseCombo, clearRadioSelections, getPurchases, assignIdToPurchase } from "./database.js"
 
 document.addEventListener("click", (event) => {
     if (event.target.id === "purchase") {
         let comboChoices = getComboChoices()
         // let purchases = getPurchases()
-        for (const key in comboChoices) {
-            if (comboChoices[key] < 1) {
-                window.alert(`Please make a selection in every field before submitting`)
-                return
-            }
-        }
+        // for (const key in comboChoices) {
+        //     if (comboChoices[key] < 1) {
+        //         window.alert(`Please make a selection in every field before submitting`)
+        //         return
+        //     }
+        // }
         assignIdToPurchase(comboChoices)
         purchaseCombo(comboChoices)
-        clearComboState()
+        // clearComboState()
         clearRadioSelections()
     }
 })
@@ -32,15 +32,15 @@ export const FoodTruck = () => {
         <section class='all-food-elements'>
             <section>
                 <h2>Entrees</h2>
-                <section class='options'>${displayEntrees()}</section>
+                <section class='options'>${Entrees()}</section>
             </section>
             <section>
                 <h2>Vegetables</h2>
-                <section class='options'>${displayVegetables()}</section>
+                <section class='options'>${Veggies()}</section>
             </section>
             <section>
                 <h2>Sides</h2>
-                <section class='options'>${displaySideDishes()}</section>
+                <section class='options'>${Sides()}</section>
             </section>
         </section>
 

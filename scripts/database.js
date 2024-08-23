@@ -1,15 +1,15 @@
 const database = {
     entrees: [
-        { name: "Hummus and Hot Sauce", price: 6.00 },
-        { name: "Chicken Fried Lamb Kabob", price: 14.25 },
-        { name: "Hot Chicken Greek Salad", price: 10.50 },
-        { name: "Brussel Sprout Moussaka", price: 11.50 },
-        { name: "Okrakopita", price: 8.40 },
-        { name: "Fried Onion and Grape Leaves", price: 6.95 },
-        { name: "Chess Baklava", price: 5.30 },
-        { name: "Gyro Biscuits", price: 8.95 },
-        { name: "Black Eye Pea Falafel", price: 7.80 },
-        { name: "Pecan Pastitsio", price: 12.49 }
+        { id: 1, name: "Hummus and Hot Sauce", price: 6.00 },
+        { id: 2, name: "Chicken Fried Lamb Kabob", price: 14.25 },
+        { id: 3, name: "Hot Chicken Greek Salad", price: 10.50 },
+        { id: 4, name: "Brussel Sprout Moussaka", price: 11.50 },
+        { id: 5, name: "Okrakopita", price: 8.40 },
+        { id: 6, name: "Fried Onion and Grape Leaves", price: 6.95 },
+        { id: 7, name: "Chess Baklava", price: 5.30 },
+        { id: 8, name: "Gyro Biscuits", price: 8.95 },
+        { id: 9, name: "Black Eye Pea Falafel", price: 7.80 },
+        { id: 10, name: "Pecan Pastitsio", price: 12.49 }
     ],
     veggies: [
         { id: 1, type: "Okra", price: 2.65 },
@@ -31,7 +31,11 @@ const database = {
         { id: 6, title: "Mini Souvlaki", price: 5.20 }
     ],
     purchases: [],
-    comboChoices: {},
+    comboChoices: {
+        entreesId: 0,
+        veggiesId: 0,
+        sidesId: 0
+    },
 }
 
 export const getEntrees = () => {
@@ -46,7 +50,36 @@ export const getSides = () => {
 export const getPurchases = () => {
     return database.purchases.map(purchase => ({...purchase}))
 }
+export const getComboChoices = () => {
+    return {...database.comboChoices}
+}
 
-export const setEntree = (chosenEntree) => {
-    //set transientState here
+export const setEntree = (chosenEntreeId) => {
+    database.comboChoices.entreesId = chosenEntreeId
+    console.log(database.comboChoices)
+}
+export const setVeggie = (chosenVeggiesId) => {
+    database.comboChoices.veggiesId = chosenVeggiesId
+    console.log(database.comboChoices)
+}
+export const setSide = (chosenSideId) => {
+    database.comboChoices.sidesId = chosenSideId
+    console.log(database.comboChoices)
+}
+
+export const purchaseCombo = (purchasedCombo) => {
+    database.purchases.push(purchasedCombo)
+    console.log(database.purchases, ' PURCHASE SAVED IN DATABASE')
+}
+export const clearComboState = () => {
+    for (const choice in database.comboChoices) {
+        database.comboChoices[choice] = 0
+    }
+}
+
+export const clearRadioSelections = () => {
+    let allRadioButtons = document.querySelectorAll('.radio-button')
+    allRadioButtons.forEach(button => {
+        button.checked = false
+    })
 }

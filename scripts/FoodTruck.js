@@ -8,16 +8,15 @@ import { clearComboState, getComboChoices, purchaseCombo, clearRadioSelections, 
 document.addEventListener("click", (event) => {
     if (event.target.id === "purchase") {
         let comboChoices = getComboChoices()
-        // let purchases = getPurchases()
-        // for (const key in comboChoices) {
-        //     if (comboChoices[key] < 1) {
-        //         window.alert(`Please make a selection in every field before submitting`)
-        //         return
-        //     }
-        // }
+        for (const key in comboChoices) {
+            if (comboChoices[key] < 1) {
+                window.alert(`Please make a selection in every field before submitting`)
+                return
+            }
+        }
         assignIdToPurchase(comboChoices)
         purchaseCombo(comboChoices)
-        // clearComboState()
+        clearComboState()
         clearRadioSelections()
     }
 })

@@ -1,16 +1,10 @@
+import { getEntrees, getVeggies, getSides } from "./database.js"
 
 const buildOrderListItem = async (order) => {
-    const entreesResponse = await fetch(`http://localhost:8088/entrees`)
-    const entressData = await entreesResponse.json()
-    const veggiesResponse = await fetch(`http://localhost:8088/veggies`)
-    const veggiesData = await veggiesResponse.json()
-    const sidesResponse = await fetch(`http://localhost:8088/sides`)
-    const sidesData = await sidesResponse.json()
+    const entrees = await getEntrees()
+    const veggies = await getVeggies()
+    const sides = await getSides()
 
-
-    const entrees = entressData
-    const veggies = veggiesData
-    const sides = sidesData
     let entreePrice
     let veggiePrice
     let sidePrice

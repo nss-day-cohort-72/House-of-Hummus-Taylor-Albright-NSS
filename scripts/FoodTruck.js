@@ -1,4 +1,3 @@
-// import { addPurchase } from "./database.js"
 import { Sales } from "./Sales.js"
 import { Entrees } from "./Entrees.js"
 import { Veggies } from "./Vegetables.js"
@@ -13,7 +12,6 @@ document.addEventListener("click", (event) => {
                 return
             }
         }
-        // assignIdToPurchase(comboChoicesTransientState)
         purchaseCombo(comboChoicesTransientState)
         clearComboState()
         clearRadioSelections()

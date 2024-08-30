@@ -1,6 +1,4 @@
-import { setVeggie } from "./database.js"
-
-// const veggies = getVeggies()
+import { setVeggie, getVeggies } from "./database.js"
 
 document.addEventListener("change", (event) => {
     if (event.target.name === "vegetable") {
@@ -9,11 +7,10 @@ document.addEventListener("change", (event) => {
 })
 
 export const Veggies = async () => {
-    const veggiesResponse = await fetch(`http://localhost:8088/veggies`)
-    const veggiesData = await veggiesResponse.json()
+    const veggies = await getVeggies()
     let html = `<ul>
         ${
-            veggiesData.map(vegetable => {
+            veggies.map(vegetable => {
                 return `<li class='choices__veggies'>
                             <input class='radio-button' type="radio" name="vegetable" value="${vegetable.id}" /> ${vegetable.type}
                         </li>`

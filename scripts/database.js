@@ -31,66 +31,78 @@ const database = {
         { id: 6, title: "Mini Souvlaki", price: 5.20 }
     ],
     purchases: [],
-    comboChoices: {
-        entreesId: 0,
-        veggiesId: 0,
-        sidesId: 0
-    },
+
 }
 
-export const getEntrees = () => {
-    return database.entrees.map(entree => ({...entree}))
+export let comboChoicesTransientState = {
+    entreesId: 0,
+    veggiesId: 0,
+    sidesId: 0
 }
-export const getVeggies = () => {
-    return database.veggies.map(veggie => ({...veggie}))
-}
-export const getSides = () => {
-    return database.sides.map(side => ({...side}))
-}
-export const getPurchases = () => {
-    return database.purchases.map(purchase => ({...purchase}))
-}
-export const getComboChoices = () => {
-    return {...database.comboChoices}
-}
+
+// export const getEntrees = () => {
+//     return database.entrees.map(entree => ({...entree}))
+// }
+// export const getVeggies = () => {
+//     return database.veggies.map(veggie => ({...veggie}))
+// }
+// export const getSides = () => {
+//     return database.sides.map(side => ({...side}))
+// }
+// export const getPurchases = () => {
+//     return database.purchases.map(purchase => ({...purchase}))
+// }
+// export const getComboChoices = () => {
+//     return {...database.comboChoicesTransientState}
+// }
 
 export const setEntree = (chosenEntreeId) => {
-    database.comboChoices.entreesId = chosenEntreeId
-    console.log(database.comboChoices)
+    comboChoicesTransientState.entreesId = chosenEntreeId
+    console.log(database.comboChoicesTransientState)
 }
 export const setVeggie = (chosenVeggiesId) => {
-    database.comboChoices.veggiesId = chosenVeggiesId
-    console.log(database.comboChoices)
+    comboChoicesTransientState.veggiesId = chosenVeggiesId
+    console.log(database.comboChoicesTransientState)
 }
 export const setSide = (chosenSideId) => {
-    database.comboChoices.sidesId = chosenSideId
-    console.log(database.comboChoices)
+    comboChoicesTransientState.sidesId = chosenSideId
+    console.log(database.comboChoicesTransientState)
 }
 
 export const purchaseCombo = (purchasedCombo) => {
-    database.purchases.push(purchasedCombo)
+    console.log(purchasedCombo)
     const customEvent = new CustomEvent("stateChanged")
+    postData(purchasedCombo)
     document.dispatchEvent(customEvent)
 }
 
-export const assignIdToPurchase = (comboChoices) => {
-    let newId = 1
-    let purchases = getPurchases()
-    purchases.forEach(purchase => {
-        if (purchase.id >= newId) {
-            newId = purchase.id + 1
-        }
-    })
-    console.log(purchases)
-    comboChoices.id = newId
-    console.log(newId, 'NEW ID')
-    console.log(comboChoices.id, 'NEW ID')
+export const postData = async (purchasedCombo) => {
+    const postOptions = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(purchasedCombo)
+    }
+    const postResponse = await fetch(`http://localhost:8088/purchases/`, postOptions)
 }
+
+// export const assignIdToPurchase = (comboChoicesTransientState) => {
+//     let newId = 1
+//     let purchases = getPurchases()
+//     purchases.forEach(purchase => {
+//         console.log(purchase.id)
+//         if (purchase.id == newId) {
+//             newId++
+//         }
+//     })
+//     comboChoicesTransientState.id = newId
+// }
 
 //clear functions
 export const clearComboState = () => {
-    for (const choice in database.comboChoices) {
-        database.comboChoices[choice] = 0
+    for (const choice in comboChoicesTransientState) {
+        comboChoicesTransientState[choice] = 0
     }
 }
 export const clearRadioSelections = () => {

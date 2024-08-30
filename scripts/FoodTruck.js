@@ -3,26 +3,29 @@ import { Sales } from "./Sales.js"
 import { Entrees } from "./Entrees.js"
 import { Veggies } from "./Vegetables.js"
 import { Sides } from "./SideDishes.js"
-import { clearComboState, getComboChoices, purchaseCombo, clearRadioSelections, getPurchases, assignIdToPurchase } from "./database.js"
+import { clearComboState, purchaseCombo, clearRadioSelections, comboChoicesTransientState } from "./database.js"
 
 document.addEventListener("click", (event) => {
     if (event.target.id === "purchase") {
-        let comboChoices = getComboChoices()
-        for (const key in comboChoices) {
-            if (comboChoices[key] < 1) {
+        for (const key in comboChoicesTransientState) {
+            if (comboChoicesTransientState[key] < 1) {
                 window.alert(`Please make a selection in every field before submitting`)
                 return
             }
         }
-        assignIdToPurchase(comboChoices)
-        purchaseCombo(comboChoices)
+        // assignIdToPurchase(comboChoicesTransientState)
+        purchaseCombo(comboChoicesTransientState)
         clearComboState()
         clearRadioSelections()
     }
 })
 
 
-export const FoodTruck = () => {
+export const FoodTruck = async () => {
+    const entrees = await Entrees()
+    const veggies = await Veggies()
+    const sides = await Sides()
+    const sales = await Sales()
     return `
         <header class="header">
             <img src="./images/hummus.png" class="logo" />
@@ -31,15 +34,15 @@ export const FoodTruck = () => {
         <section class='all-food-elements'>
             <section>
                 <h2>Entrees</h2>
-                <section class='options'>${Entrees()}</section>
+                <section id='option1' class='options'>${entrees}</section>
             </section>
             <section>
                 <h2>Vegetables</h2>
-                <section class='options'>${Veggies()}</section>
+                <section id='option2' class='options'>${veggies}</section>
             </section>
             <section>
                 <h2>Sides</h2>
-                <section class='options'>${Sides()}</section>
+                <section id='option3' class='options'>${sides}</section>
             </section>
         </section>
 
@@ -49,7 +52,7 @@ export const FoodTruck = () => {
 
         <article class="customerOrders">
             <h2>Monthly Sales</h2>
-            ${Sales()}
+            ${sales}
         </article>
     `
 }

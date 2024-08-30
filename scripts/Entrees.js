@@ -1,6 +1,6 @@
-import { getEntrees, setEntree } from "./database.js"
+import { setEntree } from "./database.js"
 
-const entrees = getEntrees()
+// const entrees = getEntrees()
 
 document.addEventListener("change", (event) => {
     if (event.target.name === 'entree') {
@@ -8,10 +8,12 @@ document.addEventListener("change", (event) => {
     }
 })
 
-export const Entrees = () => {
-    console.log(entrees)
+export const Entrees = async () => {
+    const entreesResponse = await fetch(`http://localhost:8088/entrees`)
+    const entressData = await entreesResponse.json()
+
     let entreeHTML = `<ul>`
-    entreeHTML += entrees.map(entree => {
+    entreeHTML += entressData.map(entree => {
         return `
         <li class='choices__base'>
             <input class='radio-button' type='radio' name='entree' value=${entree.id}

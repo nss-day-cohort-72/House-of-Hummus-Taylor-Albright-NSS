@@ -1,10 +1,16 @@
-import { getVeggies, getEntrees, getSides } from "./database.js"
-import { getPurchases } from "./database.js"
 
-const buildOrderListItem = (order) => {
-    const entrees = getEntrees()
-    const veggies = getVeggies()
-    const sides = getSides()
+const buildOrderListItem = async (order) => {
+    const entreesResponse = await fetch(`http://localhost:8088/entrees`)
+    const entressData = await entreesResponse.json()
+    const veggiesResponse = await fetch(`http://localhost:8088/veggies`)
+    const veggiesData = await veggiesResponse.json()
+    const sidesResponse = await fetch(`http://localhost:8088/sides`)
+    const sidesData = await sidesResponse.json()
+
+
+    const entrees = entressData
+    const veggies = veggiesData
+    const sides = sidesData
     let entreePrice
     let veggiePrice
     let sidePrice
@@ -25,7 +31,6 @@ const buildOrderListItem = (order) => {
     })
 
     const total = entreePrice + veggiePrice + sidePrice
-    console.log(total)
 
     return `<li>
         Receipt #${order.id} = ${total.toLocaleString("en-US", {
@@ -35,18 +40,16 @@ const buildOrderListItem = (order) => {
     </li>`
 }
 
-export const Sales = () => {
-    console.log('SALES RAN')
-    const sales = getPurchases()
-    console.log(sales, ' SALES FROM SALES FUNCTION')
-    return `
-        <ul>
-            ${sales.map(
-                (sale) => {
-                    return buildOrderListItem(sale)
-                }
-            ).join("")}
-        </ul>
-    `
+export const Sales = async () => {
+    const salesResponse = await fetch(`http://localhost:8088/purchases`)
+    const salesData = await salesResponse.json()
+    // const sales = getPurchases()
+    const sales = salesData
+    let buildOrderArray = []
+    for (const sale of sales) {
+        let buildOrder = await buildOrderListItem(sale)
+        buildOrderArray.push(buildOrder)
+    }
+    return `<ul>${buildOrderArray.join('')}</ul>`
 }
 
